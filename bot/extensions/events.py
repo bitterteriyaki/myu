@@ -44,8 +44,8 @@ class Events(Cog):
         users = len(bot.users)
 
         message = (
-            "Logged in as '%s' (ID: %s). "
-            "Connected to %s guilds and %s users."
+            "Logged in as '%s' (ID: %d). "
+            "Connected to %d guilds and %d users."
         )
 
         log.info(message, user, user.id, guilds, users)

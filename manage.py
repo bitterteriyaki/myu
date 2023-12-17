@@ -22,6 +22,7 @@ from logging.handlers import RotatingFileHandler
 from os import environ
 from typing import cast
 
+import humanize
 from click import group
 
 from bot.core import Myu
@@ -72,6 +73,8 @@ def runbot() -> None:
     with setup_logging():
         bot = Myu()
         token = environ["DISCORD_TOKEN"]
+
+        humanize.activate("pt_BR")
 
         bot.run(token)
 

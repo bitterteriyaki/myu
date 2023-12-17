@@ -21,6 +21,7 @@ from typing import cast
 
 from discord import Message
 from discord.ext.commands import BucketType, Cog, CooldownMapping
+from humanize import intcomma
 from sqlalchemy import insert, select, update
 
 from bot.core import Environment, Myu
@@ -181,7 +182,7 @@ class Levels(Cog):
         new_level = self.get_level_from_exp(new_exp)
 
         log.info(
-            "User '%s' (ID: %s) received %d experience (%s -> %s).",
+            "User '%s' (ID: %d) received %d experience (%d -> %d).",
             author,
             author.id,
             to_add,
@@ -189,9 +190,26 @@ class Levels(Cog):
             new_exp,
         )
 
+        # If the new level is greater than the current level, then the
+        # user has leveled up, so we reply to the message with an embed
+        # to notify the user. If the new level is in the level mapping,
+        # then we remove all the roles in the mapping from the user (so
+        # that the user only has one level role at a time) and add the
+        # new level role to the user.
         if new_level > current_level:
-            content = f"{author.mention} has leveled up to level {new_level}!"
-            embed = generate_embed(content, member=author)
+            log.info(
+                "User '%s' (ID: %d) leveled up to level %d.",
+                author,
+                author.id,
+                new_level,
+            )
+
+            contents = [
+                f"Parabéns, {author.mention}! Você subiu para o "
+                f"**nível {intcomma(new_level)}**!",
+            ]
+
+            embed = generate_embed("\n".join(contents), member=author)
             await message.reply(embed=embed, mention_author=False)
 
 
