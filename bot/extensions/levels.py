@@ -23,7 +23,7 @@ from discord import Message
 from discord.ext.commands import BucketType, Cog, CooldownMapping
 from sqlalchemy import insert, select, update
 
-from bot.core import Myu
+from bot.core import Environment, Myu
 from bot.utils.database import User
 from bot.utils.embed import generate_embed
 
@@ -32,8 +32,6 @@ log = getLogger(__name__)
 
 class Levels(Cog):
     """Ranking system for users."""
-
-    __slots__ = ("bot",)
 
     def __init__(self, bot: Myu) -> None:
         self.bot = bot
@@ -158,6 +156,15 @@ class Levels(Cog):
     @Cog.listener()
     async def on_regular_message(self, message: Message) -> None:
         author = message.author
+        channel = message.channel
+
+        # If we are in development environment, only add experience in
+        # the test channel.
+        if (
+            self.bot.environment == Environment.DEVELOPMENT
+            and self.bot.test_channel != channel
+        ):
+            return
 
         current_exp = await self.get_experience(author.id, insert=True)
         current_level = self.get_level_from_exp(current_exp)

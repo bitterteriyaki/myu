@@ -32,8 +32,6 @@ log = getLogger(__name__)
 class Events(Cog):
     """Event listeners for the bot."""
 
-    __slots__ = ("bot",)
-
     def __init__(self, bot: Myu) -> None:
         self.bot = bot
 

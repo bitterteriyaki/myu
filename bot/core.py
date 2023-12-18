@@ -15,18 +15,36 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from enum import IntEnum
 from logging import getLogger
-from typing import Any
+from os import environ
+from typing import Any, cast
 
-from discord import Intents, Interaction, Message
+from discord import Guild, Intents, Interaction, Message, TextChannel
 from discord.ext.commands import Bot, Context
+from discord.utils import cached_property
 from jishaku.modules import find_extensions_in
 from sqlalchemy.ext.asyncio import create_async_engine
 
+from bot.utils.constants import GUILD_ID, TEST_CHANNEL_ID
 from bot.utils.context import MyuContext
 from bot.utils.database import DATABASE_URL
 
 log = getLogger(__name__)
+
+
+class Environment(IntEnum):
+    """The environment the bot is running in."""
+
+    DEVELOPMENT = 0
+    PRODUCTION = 1
+    UNKNOWN = 2
+
+
+ENVIRONMENTS = {
+    "development": Environment.DEVELOPMENT,
+    "production": Environment.PRODUCTION,
+}
 
 
 class Myu(Bot):
@@ -36,6 +54,24 @@ class Myu(Bot):
         super().__init__(command_prefix=get_prefix, intents=Intents.all())
 
         self.engine = create_async_engine(DATABASE_URL)
+
+    @cached_property
+    def environment(self) -> Environment:
+        """The environment the bot is running in."""
+        env = environ.get("BOT_ENV")
+
+        if env is None:
+            return Environment.UNKNOWN
+
+        return ENVIRONMENTS.get(env, Environment.UNKNOWN)
+
+    @cached_property
+    def guild(self) -> Guild:
+        return cast(Guild, self.get_guild(GUILD_ID))
+
+    @cached_property
+    def test_channel(self) -> TextChannel:
+        return cast(TextChannel, self.guild.get_channel(TEST_CHANNEL_ID))
 
     async def setup_hook(self) -> None:
         await self.load_extension("jishaku")
