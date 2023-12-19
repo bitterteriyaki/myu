@@ -15,16 +15,19 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from logging import getLogger
 from random import randint
 from typing import cast
 
 from discord import Message
-from discord.ext.commands import Cog
+from discord.ext.commands import BucketType, Cog, CooldownMapping
 from sqlalchemy import insert, select, update
 
 from bot.core import Myu
 from bot.utils.database import User
 from bot.utils.embed import generate_embed
+
+log = getLogger(__name__)
 
 
 class Levels(Cog):
@@ -34,6 +37,10 @@ class Levels(Cog):
 
     def __init__(self, bot: Myu) -> None:
         self.bot = bot
+        # Users can only gain experience once every minute. This is
+        # because we don't want users to spam messages to gain
+        # experience.
+        self.cooldown = CooldownMapping.from_cooldown(1, 60, BucketType.user)
 
     def get_level_exp(self, level: int) -> int:
         """Get the experience require to reach the given level. The
@@ -155,8 +162,25 @@ class Levels(Cog):
         current_exp = await self.get_experience(author.id, insert=True)
         current_level = self.get_level_from_exp(current_exp)
 
-        new_exp = await self.add_experience(author.id, randint(15, 25))
+        bucket = self.cooldown.get_bucket(message)
+        retry_after = bucket.update_rate_limit() if bucket else None
+
+        if retry_after is not None:
+            return
+
+        to_add = randint(15, 25)
+
+        new_exp = await self.add_experience(author.id, to_add)
         new_level = self.get_level_from_exp(new_exp)
+
+        log.info(
+            "User '%s' (ID: %s) received %d experience (%s -> %s).",
+            author,
+            author.id,
+            to_add,
+            current_exp,
+            new_exp,
+        )
 
         if new_level > current_level:
             content = f"{author.mention} has leveled up to level {new_level}!"
