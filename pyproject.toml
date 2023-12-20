@@ -13,6 +13,9 @@ click = "^8.1.7"
 rich = "^13.7.1"
 discord-py = "^2.4.0"
 jishaku = "^2.5.2"
+sqlalchemy = {extras = ["asyncio"], version = "^2.0.31"}
+alembic = "^1.13.2"
+asyncpg = "^0.29.0"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.1"

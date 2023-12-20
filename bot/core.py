@@ -23,8 +23,10 @@ from discord.ext.commands import Bot, Context
 from rich import print
 from rich.box import ROUNDED
 from rich.table import Table
+from sqlalchemy.ext.asyncio import create_async_engine
 
 from bot.utils.context import MyuContext
+from bot.utils.database import DATABASE_URL
 
 log = getLogger(__name__)
 
@@ -34,6 +36,8 @@ class Myu(Bot):
 
     def __init__(self) -> None:
         super().__init__(command_prefix=get_prefix, intents=Intents.all())
+
+        self.engine = create_async_engine(DATABASE_URL)
 
     async def on_ready(self) -> None:
         user = cast(ClientUser, self.user)

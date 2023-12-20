@@ -36,6 +36,7 @@ def setup_logging() -> Generator[None, None, None]:
 
         getLogger("discord").setLevel(INFO)
         getLogger("discord.http").setLevel(WARNING)
+        getLogger("sqlalchemy.engine").setLevel(INFO)
 
         log.setLevel(INFO)
 

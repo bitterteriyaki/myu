@@ -86,6 +86,9 @@ repos:
           - rich>=13.7.1,<14.0.0
           - discord.py>=2.4.0,<3.0.0
           - jishaku>=2.5.2,<3.0.0
+          - sqlalchemy[asyncio]>=2.0.31,<3.0.0
+          - alembic>=1.13.2,<2.0.0
+          - asyncpg>=0.29.0,<1.0.0
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v3.28.0
     hooks:
