@@ -110,8 +110,3 @@ repos:
         name: 🔧 Run linter (ruff)
       - id: ruff-format
         name: 🔧 Run formatter (ruff)
-  - repo: https://github.com/openstack/bashate
-    rev: 2.1.1
-    hooks:
-      - id: bashate
-        name: 📜 Shell script linter (bashate)

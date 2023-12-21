@@ -75,7 +75,15 @@ RUN --mount=type=cache,target="$POETRY_CACHE_DIR" \
     $(if [ "${BOT_ENV}" = 'production' ]; then echo '--only main'; fi) \
     --no-interaction --no-ansi
 
+COPY ./docker/bot/entrypoint.sh /usr/local/bin/entrypoint.sh
+
+RUN \
+  chmod +x '/usr/local/bin/entrypoint.sh' \
+  && sed -i 's/\r$//g' '/usr/local/bin/entrypoint.sh'
+
 USER bot
+
+ENTRYPOINT ["tini", "--", "/usr/local/bin/entrypoint.sh"]
 
 
 FROM development AS production

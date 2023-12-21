@@ -8,8 +8,26 @@ services:
       target: development
       args:
         - BOT_ENV=development
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     volumes:
       - .:/bot
+    networks:
+      - database
     env_file:
       - .env
     command: python manage.py runbot
+
+  postgres:
+    image: postgres:16.3-alpine3.20
+    container_name: myu-postgres
+    volumes:
+      - .data/postgres:/var/lib/postgresql/data
+    networks:
+      - database
+    env_file:
+      - .env
+    restart: unless-stopped
+
+networks:
+  database:
