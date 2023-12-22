@@ -47,7 +47,6 @@ select = [
     "S",
     "B",
     "A",
-    "COM",
     "CPY",
     "C4",
     "DTZ",
@@ -68,6 +67,8 @@ select = [
     "DOC",
     "RUF",
 ]
+
+ignore = ["ANN401"]
 
 [tool.ruff.lint.pycodestyle]
 # pycodestyle configuration:

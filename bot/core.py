@@ -16,13 +16,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from logging import getLogger
-from typing import cast
+from typing import Any, cast
 
-from discord import ClientUser, Intents, Message
-from discord.ext.commands import Bot
+from discord import ClientUser, Intents, Interaction, Message
+from discord.ext.commands import Bot, Context
 from rich import print
 from rich.box import ROUNDED
 from rich.table import Table
+
+from bot.utils.context import MyuContext
 
 log = getLogger(__name__)
 
@@ -54,6 +56,15 @@ class Myu(Bot):
 
     async def setup_hook(self) -> None:
         await self.load_extension("jishaku")
+
+    async def get_context(
+        self,
+        origin: Message | Interaction,
+        /,
+        *,
+        cls: type[Context[Any]] = MyuContext,
+    ) -> Any:
+        return await super().get_context(origin, cls=cls)
 
 
 def get_prefix(bot: Myu, message: Message) -> tuple[str, ...]:
