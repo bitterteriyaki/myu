@@ -39,14 +39,15 @@ class Myu(Bot):
         guilds = len(self.guilds)
         users = len(self.users)
 
-        log.info(
-            f"Logged in as 'user' (ID: {user.id}). "
-            f"Connected to {guilds} guilds and {users} users."
+        message = (
+            "Logged in as '%s' (ID: %s). "
+            "Connected to %s guilds and %s users."
         )
+
+        log.info(message, user.id, guilds, users)
 
         columns = ("User", "ID", "Guilds", "Users")
         table = Table(*columns, box=ROUNDED)
-
         table.add_row(str(user), str(user.id), str(guilds), str(users))
 
         print(table)
@@ -56,4 +57,18 @@ class Myu(Bot):
 
 
 def get_prefix(bot: Myu, message: Message) -> tuple[str, ...]:
+    """Return the available prefixes for the bot in a given message.
+
+    Parameters
+    ----------
+    bot: :class:`bot.core.Myu`
+        The bot instance.
+    message: :class:`discord.Message`
+        The message object.
+
+    Returns
+    -------
+    tuple[:class:`str`, ...]
+        The available prefixes for the bot.
+    """
     return ("?", "myu ")

@@ -27,7 +27,6 @@ target-version = "py312"
 show-fixes = true
 preview =  true
 output-format = "full"
-extend-exclude = ["apps/*/migrations/*"]
 
 fix = true
 line-length = 79
@@ -41,16 +40,33 @@ select = [
     "I",
     "N",
     "UP",
+    "ANN",
+    "ASYNC",
+    "BLE",
+    "FBT",
     "S",
     "B",
+    "A",
+    "COM",
     "CPY",
     "C4",
     "DTZ",
-    "DJ",
+    "T10",
+    "EM",
+    "FA",
+    "LOG",
+    "G",
     "INP",
+    "PIE",
+    "SLF",
+    "SLOT",
     "SIM",
     "PTH",
+    "TD",
+    "FIX",
     "PERF",
+    "DOC",
+    "RUF",
 ]
 
 [tool.ruff.lint.pycodestyle]
@@ -102,6 +118,8 @@ show_column_numbers = true
 show_error_codes = true
 
 [tool.commitizen]
+# Commitizen configuration:
+# https://commitizen-tools.github.io/commitizen/config/
 name = "cz_conventional_commits"
 gpg_sign = true
 tag_format = "$version"

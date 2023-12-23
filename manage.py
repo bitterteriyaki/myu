@@ -1,8 +1,26 @@
-from os import environ
-from contextlib import contextmanager
+"""
+Copyright (C) 2024-present kyomi
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published
+by the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+"""
+
 from collections.abc import Generator
-from logging import getLogger, INFO, WARN, Formatter
+from contextlib import contextmanager
+from logging import INFO, WARNING, Formatter, getLogger
 from logging.handlers import RotatingFileHandler
+from os import environ
+from typing import cast
 
 from click import group
 
@@ -17,7 +35,7 @@ def setup_logging() -> Generator[None, None, None]:
         max_bytes = 32 * 1024 * 1024
 
         getLogger("discord").setLevel(INFO)
-        getLogger("discord.http").setLevel(WARN)
+        getLogger("discord.http").setLevel(WARNING)
 
         log.setLevel(INFO)
 
@@ -38,7 +56,7 @@ def setup_logging() -> Generator[None, None, None]:
 
         yield
     finally:
-        for handler in log.handlers[:]:
+        for handler in cast(list[RotatingFileHandler], log.handlers):
             handler.close()
             log.removeHandler(handler)
 
