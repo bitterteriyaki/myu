@@ -53,7 +53,7 @@ class Myu(Bot):
     def __init__(self) -> None:
         super().__init__(command_prefix=get_prefix, intents=Intents.all())
 
-        self.default_prefix = "?" if self.is_development() else "!"
+        self.default_prefix = "!" if self.is_development() else "?"
         self.engine = create_async_engine(DATABASE_URL)
 
     @cached_property
