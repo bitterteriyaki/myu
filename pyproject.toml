@@ -9,6 +9,10 @@ package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.12"
+click = "^8.1.7"
+rich = "^13.7.1"
+discord-py = "^2.4.0"
+jishaku = "^2.5.2"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.1"
@@ -16,6 +20,7 @@ commitizen = "^3.28.0"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
+gpg_sign = true
 tag_format = "$version"
 version_scheme = "semver2"
 version_provider = "poetry"
