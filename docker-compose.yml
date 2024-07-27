@@ -1,0 +1,15 @@
+services:
+  bot:
+    container_name: myu-bot
+    tty: true
+    build:
+      context: .
+      dockerfile: docker/bot/Dockerfile
+      target: development
+      args:
+        - BOT_ENV=development
+    volumes:
+      - .:/bot
+    env_file:
+      - .env
+    command: python manage.py runbot
