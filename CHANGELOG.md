@@ -1,5 +1,12 @@
 # 🗃 Changelog
 
+# 🗃 Changelog
+
+## 🔗 0.3.0
+
+### 🖇 Features
+- ([`c222d88`](https://github.com/bitterteriyaki/myu/commit/c222d8857c9c52b7461eedac2e8fbbcd9a140963)) Initial core development (`bot.core`)
+
 ## 🔗 0.2.0
 
 ### 🖇 Features
