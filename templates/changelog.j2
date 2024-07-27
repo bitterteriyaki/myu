@@ -1,8 +1,7 @@
 # 🗃 Changelog
-
 {% for entry in tree %}
-## 🔗 {{ entry.version }}
 
+## 🔗 {{ entry.version }}
 {% for change_key, changes in entry.changes.items() %}
 
 {% if change_key == "Feat" %}
@@ -11,12 +10,16 @@
 ### 🔧 Fixes
 {% elif change_key == "Refactor" %}
 ### 🧰 Refactor
+{% else %}
+### {{ change_key }}
+{% endif %}
+{% if not changes %}
 {% endif %}
 {% for change in changes %}
 {% if change.scope %}
-- ([`{{ change.sha1[:7] }}`](https://github.com/bitterteriyaki/myu-bot/commit/{{ change.sha1 }})) {{ change.message.capitalize() }} (`{{ change.scope }}`)
+- ([`{{ change.sha1[:7] }}`](https://github.com/bitterteriyaki/myu/commit/{{ change.sha1 }})) {{ change.message.capitalize() }} (`{{ change.scope }}`)
 {% elif change.message %}
-- ([`{{ change.sha1[:7] }}`](https://github.com/bitterteriyaki/myu-bot/commit/{{ change.sha1 }})) {{ change.message.capitalize() }}
+- ([`{{ change.sha1[:7] }}`](https://github.com/bitterteriyaki/myu/commit/{{ change.sha1 }})) {{ change.message.capitalize() }}
 {% endif %}
 {% endfor %}
 {% endfor %}

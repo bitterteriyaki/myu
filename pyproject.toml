@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "myu"
-version = "0.1.0"
+version = "0.2.0"
 description = "Multipurpose bot for Discord written in Python."
 authors = ["kyomi <me@kyomi.dev>"]
 license = "AGPL-3.0-only"
