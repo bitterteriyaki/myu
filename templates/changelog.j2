@@ -1,0 +1,22 @@
+# 🗃 Changelog
+
+{% for entry in tree %-}
+## 🔗 {{ entry.version }}
+
+{% for change_key, changes in entry.changes.items() %-}
+{% if change_key == "Feat" %}
+### 🖇 Features
+{% elif change_key == "Fix" %}
+### 🔧 Fixes
+{% elif change_key == "Refactor" %}
+### 🧰 Refactor
+{% endif %}
+{% for change in changes %}
+{% if change.scope %}
+- ([`{{ change.sha1[:7] }}`](https://github.com/bitterteriyaki/myu-bot/commit/{{ change.sha1 }})) {{ change.message.capitalize() }} (`{{ change.scope }}`)
+{% elif change.message %}
+- ([`{{ change.sha1[:7] }}`](https://github.com/bitterteriyaki/myu-bot/commit/{{ change.sha1 }})) {{ change.message.capitalize() }}
+{% endif %-}
+{% endfor %}
+{% endfor %}
+{% endfor %}

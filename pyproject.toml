@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "myu"
+version = "0.1.0"
+description = "Multipurpose bot for Discord written in Python."
+authors = ["kyomi <me@kyomi.dev>"]
+license = "AGPL-3.0-only"
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.7.1"
+commitizen = "^3.28.0"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "semver2"
+version_provider = "poetry"
+update_changelog_on_bump = true
+template = "templates/changelog.j2"
+bump_message = "bump: bump version to $new_version"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
