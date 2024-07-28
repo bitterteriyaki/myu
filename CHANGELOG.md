@@ -1,5 +1,18 @@
 # 🗃 Changelog
 
+# 🗃 Changelog
+
+## 🔗 0.5.0
+
+### 🖇 Features
+
+- ([`224ea4f`](https://github.com/bitterteriyaki/myu/commit/224ea4f7d56289ef8b660576c1e73ce7736ae81a)) Load `jishaku` extension (`jishaku`)
+
+### 🔧 Fixes
+
+- ([`f677005`](https://github.com/bitterteriyaki/myu/commit/f677005ab2b10359748564ff7d50c1d844dcb1a1)) Fix incorrect `logging` parameters (`logging`)
+- ([`3b1099f`](https://github.com/bitterteriyaki/myu/commit/3b1099ff4e65501ba1759aba1cd153d8edf347f7)) Fix errors from `ruff` (`ruff`)
+
 ## 🔗 0.4.0
 
 ### 🖇 Features
