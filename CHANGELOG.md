@@ -1,5 +1,12 @@
 # 🗃 Changelog
 
+## 🔗 0.6.0
+
+### 🖇 Features
+
+- ([`52dc1f2`](https://github.com/bitterteriyaki/myu/commit/52dc1f2173f12849a3b6150cad3b2658ccbe9c22)) Initial connection with postgresql (`postgresql`)
+- ([`b476c96`](https://github.com/bitterteriyaki/myu/commit/b476c966ab4e088e105d9d598ceeb9734f8daa7f)) Add initial custom context class (`bot.core`)
+
 ## 🔗 0.5.0
 
 ### 🖇 Features
