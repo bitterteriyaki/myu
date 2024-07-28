@@ -44,7 +44,7 @@ class Myu(Bot):
             "Connected to %s guilds and %s users."
         )
 
-        log.info(message, user.id, guilds, users)
+        log.info(message, user, user.id, guilds, users)
 
         columns = ("User", "ID", "Guilds", "Users")
         table = Table(*columns, box=ROUNDED)
