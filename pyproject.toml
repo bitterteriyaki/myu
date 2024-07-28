@@ -73,7 +73,7 @@ select = [
 
 ignore = ["ANN401"]
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "bot/extensions/**.py" = ["INP001"]
 "migrations/versions/**.py" = ["CPY001", "INP001"]
 "bot/extensions/levels.py" = ["S311"]

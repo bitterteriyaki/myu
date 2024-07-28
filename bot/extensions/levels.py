@@ -36,11 +36,38 @@ class Levels(Cog):
         self.bot = bot
 
     def get_level_exp(self, level: int) -> int:
-        """ """
+        """Get the experience require to reach the given level. The
+        formula used to calculate the experience is:
+
+        .. code-block:: python
+
+            5 * (level**2) + (50 * level) + 100
+
+        Parameters
+        ----------
+        level: :class:`int`
+            The level to get the experience required to reach it.
+
+        Returns
+        -------
+        :class:`int`
+            The experience required to reach the given level.
+        """
         return 5 * (level**2) + (50 * level) + 100
 
     def get_level_from_exp(self, exp: int) -> int:
-        """ """
+        """Get the level from the given experience.
+
+        Parameters
+        ----------
+        exp: :class:`int`
+            The experience to get the level from.
+
+        Returns
+        -------
+        :class:`int`
+            The level from the given experience.
+        """
         level = 0
 
         while exp >= (needed_exp := self.get_level_exp(level)):
@@ -50,7 +77,15 @@ class Levels(Cog):
         return level
 
     async def insert_user(self, user_id: int) -> None:
-        """ """
+        """Insert an user into database with the given ID and default
+        experience of 0. This should only be used when the user sends
+        a message and doesn't exist in the database.
+
+        Parameters
+        ----------
+        user_id: :class:`int`
+            The ID of the user to insert into the database.
+        """
         async with self.bot.engine.begin() as conn:
             stmt = insert(User).values(id=user_id)
             await conn.execute(stmt)
@@ -58,7 +93,24 @@ class Levels(Cog):
     async def get_experience(
         self, user_id: int, /, *, insert: bool = False
     ) -> int:
-        """ """
+        """Get the experience of an user with the given ID. If the user
+        doesn't exist in the database, then zero is returned. If the
+        ``insert`` parameter is set to ``True``, then the user will be
+        insert into the database if it doesn't exist.
+
+        Parameters
+        ----------
+        user_id: :class:`int`
+            The ID of the user to get the experience from.
+        insert: :class:`bool`
+            Whether to insert the user into the database if it doesn't
+            exist. Defaults to ``False``.
+
+        Returns
+        -------
+        :class:`int`
+            The experience of the user with the given ID.
+        """
         async with self.bot.engine.begin() as conn:
             stmt = select(User).where(User.id == user_id)
             result = (await conn.execute(stmt)).fetchone()
@@ -69,7 +121,22 @@ class Levels(Cog):
         return cast(int, result.exp) if result is not None else 0
 
     async def add_experience(self, user_id: int, to_add: int) -> int:
-        """ """
+        """Add experience to an user with the given ID. If the user
+        doesn't exist in the database, then zero is returned. If the
+        user exists in the database, then zero is returned.
+
+        Parameters
+        ----------
+        user_id: :class:`int`
+            The ID of the user to add the experience to.
+        to_add: :class:`int`
+            The amount of experience to add to the user.
+
+        Returns
+        -------
+        :class:`int`
+            The new experience of the user with the given ID.
+        """
         async with self.bot.engine.begin() as conn:
             stmt = (
                 update(User)
