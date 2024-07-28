@@ -1,5 +1,14 @@
 # 🗃 Changelog
 
+## 🔗 0.7.0
+
+### 🖇 Features
+
+- ([`a733d63`](https://github.com/bitterteriyaki/myu/commit/a733d63424cdb5b89d1c6d6c1a351182f939105f)) Add cooldown for experience obtaining (`extensions.levels`)
+- ([`0748a8d`](https://github.com/bitterteriyaki/myu/commit/0748a8dd2ba1011ecd805daf8ac6b1b73cb9753a)) Change `sqlalchemy` logging mode to debug (`logging`)
+- ([`7fc0ca3`](https://github.com/bitterteriyaki/myu/commit/7fc0ca3129e45355108c8ed664e1687356bff709)) Add initial levels extension (`extensions.levels`)
+- ([`c9252dc`](https://github.com/bitterteriyaki/myu/commit/c9252dc4884e985ed64fcbe59541e20f7cdf607e)) Initial integration with `sqlalchemy` and `alembic` (`sqlalchemy`)
+
 ## 🔗 0.6.0
 
 ### 🖇 Features
