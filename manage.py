@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from collections.abc import Generator
 from contextlib import contextmanager
-from logging import INFO, WARNING, Formatter, getLogger
+from logging import DEBUG, INFO, WARNING, Formatter, getLogger
 from logging.handlers import RotatingFileHandler
 from os import environ
 from typing import cast
@@ -36,7 +36,7 @@ def setup_logging() -> Generator[None, None, None]:
 
         getLogger("discord").setLevel(INFO)
         getLogger("discord.http").setLevel(WARNING)
-        getLogger("sqlalchemy.engine").setLevel(INFO)
+        getLogger("sqlalchemy.engine").setLevel(DEBUG)
 
         log.setLevel(INFO)
 
