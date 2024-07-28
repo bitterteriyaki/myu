@@ -5,13 +5,15 @@ FROM python:${PYTHON_VERSION}-slim-bullseye AS development
 # Our bot will be installed in /bot.
 WORKDIR /bot
 
-ARG BOT_ENV \
+ARG \
+  BOT_ENV \
   # This is needed to fix permissions of files created in
   # the container, so that they are owned by the host user.
   UID=1000 \
   GID=1000
 
-ENV BOT_ENV=${BOT_ENV} \
+ENV \
+  BOT_ENV=${BOT_ENV} \
   # Python:
   PYTHONFAULTHANDLER=1 \
   PYTHONUNBUFFERED=1 \
@@ -34,7 +36,8 @@ ENV BOT_ENV=${BOT_ENV} \
   JISHAKU_NO_DM_TRACEBACK=true
 
 # Install build dependencies.
-RUN apt-get update -qq \
+RUN \
+  apt-get update -qq \
   && apt-get upgrade -y \
   && apt-get install --no-install-recommends -y \
     bash \

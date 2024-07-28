@@ -18,6 +18,89 @@ jishaku = "^2.5.2"
 pre-commit = "^3.7.1"
 commitizen = "^3.28.0"
 
+[tool.ruff]
+# Ruff configuration:
+# https://docs.astral.sh/ruff
+required-version = "0.5.5"
+target-version = "py312"
+
+show-fixes = true
+preview =  true
+output-format = "full"
+extend-exclude = ["apps/*/migrations/*"]
+
+fix = true
+line-length = 79
+
+[tool.ruff.lint]
+select = [
+    "F",
+    "E",
+    "W",
+    "C90",
+    "I",
+    "N",
+    "UP",
+    "S",
+    "B",
+    "CPY",
+    "C4",
+    "DTZ",
+    "DJ",
+    "INP",
+    "SIM",
+    "PTH",
+    "PERF",
+]
+
+[tool.ruff.lint.pycodestyle]
+# pycodestyle configuration:
+# https://docs.astral.sh/ruff/settings/#pycodestyle
+max-doc-length = 72
+max-line-length = 79
+
+[tool.ruff.lint.mccabe]
+# mccabe configuration:
+# https://docs.astral.sh/ruff/settings/#mccabe
+max-complexity = 5
+
+[tool.ruff.lint.pydocstyle]
+# pydocstyle configuration:
+# https://docs.astral.sh/ruff/settings/#pydocstyle
+convention = "numpy"
+
+[tool.ruff.lint.flake8-copyright]
+# flake8-copyright configuration:
+# https://docs.astral.sh/ruff/settings/#flake8-copyright
+notice-rgx = "(?i)Copyright \\(C\\) 2024-present kyomi"
+
+[tool.bandit]
+# Bandit configuration:
+# https://bandit.readthedocs.io/en/latest/config.html
+
+[tool.mypy]
+# Mypy configuration:
+# https://mypy.readthedocs.io/en/stable/config_file.html
+strict = true
+pretty = true
+
+disallow_any_unimported = true
+disallow_any_decorated = true
+disallow_any_generics = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+warn_unreachable = true
+show_error_context = true
+show_column_numbers = true
+show_error_codes = true
+
 [tool.commitizen]
 name = "cz_conventional_commits"
 gpg_sign = true
