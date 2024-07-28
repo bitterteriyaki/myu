@@ -29,8 +29,6 @@ ENV BOT_ENV=${BOT_ENV} \
   POETRY_HOME='/usr/local' \
   # Tini
   TINI_VERSION=v0.19.0 \
-  # Dockerize:
-  DOCKERIZE_VERSION=v0.7.0 \
   # Jishaku:
   JISHAKU_NO_UNDERSCORE=true \
   JISHAKU_NO_DM_TRACEBACK=true
@@ -42,14 +40,10 @@ RUN apt-get update -qq \
     bash \
     curl \
     git \
+    wait-for-it \
   # Installing Poetry:
   && curl -sSL 'https://install.python-poetry.org' | python - \
   && poetry --version \
-  # Installing Dockerize:
-  && curl -sSLO "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
-  && tar -C /usr/local/bin -xzvf "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
-  && rm "dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
-  && dockerize --version \
   # Installing Tini:
   && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
   && curl -o /usr/local/bin/tini -sSLO "https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${dpkgArch}" \
@@ -63,13 +57,15 @@ SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
 
 # We create a non-root user to run the bot,
 # so that we don't run the bot as root.
-RUN groupadd -g "${GID}" -r bot \
+RUN \
+  groupadd -g "${GID}" -r bot \
   && useradd -d '/bot' -g bot -l -r -u "${UID}" bot \
   && chown bot:bot -R '/bot'
 
 COPY --chown=bot:bot ./poetry.lock ./pyproject.toml /bot/
 
-RUN --mount=type=cache,target="$POETRY_CACHE_DIR" echo "${BOT_ENV}" \
+RUN --mount=type=cache,target="$POETRY_CACHE_DIR" \
+  echo "${BOT_ENV}" \
   && poetry version \
   && poetry run pip install --no-deps --upgrade pip \
   && poetry install \
