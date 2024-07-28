@@ -24,7 +24,7 @@ from discord.ext.commands import BucketType, Cog, CooldownMapping
 from humanize import intcomma
 from sqlalchemy import insert, select, update
 
-from bot.core import Environment, Myu
+from bot.core import Myu
 from bot.utils.database import User
 from bot.utils.embed import generate_embed
 
@@ -161,10 +161,7 @@ class Levels(Cog):
 
         # If we are in development environment, only add experience in
         # the test channel.
-        if (
-            self.bot.environment == Environment.DEVELOPMENT
-            and self.bot.test_channel != channel
-        ):
+        if self.bot.is_development() and channel != self.bot.test_channel:
             return
 
         current_exp = await self.get_experience(author.id, insert=True)

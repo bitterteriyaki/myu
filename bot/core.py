@@ -53,6 +53,7 @@ class Myu(Bot):
     def __init__(self) -> None:
         super().__init__(command_prefix=get_prefix, intents=Intents.all())
 
+        self.default_prefix = "?" if self.is_development() else "!"
         self.engine = create_async_engine(DATABASE_URL)
 
     @cached_property
@@ -72,6 +73,16 @@ class Myu(Bot):
     @cached_property
     def test_channel(self) -> TextChannel:
         return cast(TextChannel, self.guild.get_channel(TEST_CHANNEL_ID))
+
+    def is_development(self) -> bool:
+        """Return whether the bot is running in development environment.
+
+        Returns
+        -------
+        :class:`bool`
+            Whether the bot is running in development environment.
+        """
+        return self.environment == Environment.DEVELOPMENT
 
     async def setup_hook(self) -> None:
         await self.load_extension("jishaku")
@@ -104,4 +115,4 @@ def get_prefix(bot: Myu, message: Message) -> tuple[str, ...]:
     tuple[:class:`str`, ...]
         The available prefixes for the bot.
     """
-    return ("?", "myu ")
+    return (bot.default_prefix, "myu ")
