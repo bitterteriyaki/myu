@@ -1,5 +1,15 @@
 # 🗃 Changelog
 
+## 🔗 0.8.0
+
+### 🖇 Features
+
+- ([`b63b128`](https://github.com/bitterteriyaki/myu/commit/b63b128cd97a2a550700e5fa1beb5e3548e18c86)) Improve level up text (`extensions.levels`)
+
+### 🔧 Fixes
+
+- ([`7a5a4f6`](https://github.com/bitterteriyaki/myu/commit/7a5a4f6f0a97b36fafd2e110ac2fc627c14be697)) Only add experience on test channel when the bot is in development mode (`extensions.levels`)
+
 ## 🔗 0.7.0
 
 ### 🖇 Features
