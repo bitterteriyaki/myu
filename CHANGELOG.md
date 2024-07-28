@@ -1,5 +1,11 @@
 # 🗃 Changelog
 
+## 🔗 0.9.0
+
+### 🖇 Features
+
+- ([`3893473`](https://github.com/bitterteriyaki/myu/commit/3893473f5f891e1f9617081b85b2c9c2b3a9f01b)) Add dynamic prefixes depending of the environment (`bot.core`)
+
 ## 🔗 0.8.0
 
 ### 🖇 Features
