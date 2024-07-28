@@ -18,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from functools import partial
 from os import environ
 
-from sqlalchemy import Column
+from sqlalchemy import BigInteger, Column
 from sqlalchemy.ext.asyncio import AsyncAttrs
 from sqlalchemy.orm import DeclarativeBase
 
@@ -29,3 +29,12 @@ Field = partial(Column, nullable=False)
 
 class Base(AsyncAttrs, DeclarativeBase):
     """Base class for database models."""
+
+
+class User(Base):
+    """Represents an user in the chat."""
+
+    __tablename__ = "users"
+
+    id = Field(BigInteger, primary_key=True)
+    exp = Field(BigInteger, default=0)

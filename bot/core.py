@@ -16,13 +16,11 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 from logging import getLogger
-from typing import Any, cast
+from typing import Any
 
-from discord import ClientUser, Intents, Interaction, Message
+from discord import Intents, Interaction, Message
 from discord.ext.commands import Bot, Context
-from rich import print
-from rich.box import ROUNDED
-from rich.table import Table
+from jishaku.modules import find_extensions_in
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from bot.utils.context import MyuContext
@@ -39,27 +37,11 @@ class Myu(Bot):
 
         self.engine = create_async_engine(DATABASE_URL)
 
-    async def on_ready(self) -> None:
-        user = cast(ClientUser, self.user)
-
-        guilds = len(self.guilds)
-        users = len(self.users)
-
-        message = (
-            "Logged in as '%s' (ID: %s). "
-            "Connected to %s guilds and %s users."
-        )
-
-        log.info(message, user, user.id, guilds, users)
-
-        columns = ("User", "ID", "Guilds", "Users")
-        table = Table(*columns, box=ROUNDED)
-        table.add_row(str(user), str(user.id), str(guilds), str(users))
-
-        print(table)
-
     async def setup_hook(self) -> None:
         await self.load_extension("jishaku")
+
+        for extesion in find_extensions_in("bot/extensions"):
+            await self.load_extension(extesion)
 
     async def get_context(
         self,

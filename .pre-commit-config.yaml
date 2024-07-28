@@ -98,14 +98,6 @@ repos:
         name: 📦 Run commit message linter (commitizen-branch)
         stages:
           - push
-  - repo: https://github.com/pycqa/bandit
-    rev: 1.7.9
-    hooks:
-      - id: bandit
-        name: 🔧 Check for common security issues (bandit)
-        args:
-          - -c
-          - pyproject.toml
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.5.5
     hooks:

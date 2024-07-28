@@ -17,7 +17,7 @@ wait-for-it \
 echo "PostgreSQL is up. Continuing..."
 
 # Apply database migrations
-# alembic upgrade head
+alembic upgrade head
 
 # Evaluating passed command (do not touch):
 exec $cmd

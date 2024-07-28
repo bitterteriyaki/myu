@@ -18,11 +18,11 @@ services:
       - .env
     command: python manage.py runbot
 
-  postgres:
+  postgresql:
     image: postgres:16.3-alpine3.20
-    container_name: myu-postgres
+    container_name: myu-postgresql
     volumes:
-      - .data/postgres:/var/lib/postgresql/data
+      - .data/postgresql:/var/lib/postgresql/data
     networks:
       - database
     env_file:

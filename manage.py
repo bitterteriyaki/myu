@@ -74,7 +74,7 @@ def runbot() -> None:
         bot = Myu()
         token = environ["DISCORD_TOKEN"]
 
-        bot.run(token, log_handler=None)
+        bot.run(token)
 
 
 if __name__ == "__main__":
