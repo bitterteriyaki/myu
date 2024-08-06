@@ -35,6 +35,8 @@ jobs:
         with:
           push: true
           context: .
+          build-args: BOT_ENV=production
+          target: production
           file: ./docker/bot/Dockerfile
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
