@@ -19,12 +19,13 @@ from logging import getLogger
 from random import randint
 from typing import cast
 
-from discord import Message
+from discord import Member, Message, Role
 from discord.ext.commands import BucketType, Cog, CooldownMapping
 from humanize import intcomma
 from sqlalchemy import insert, select, update
 
 from bot.core import Myu
+from bot.utils.constants import LEVELS_MAPPING
 from bot.utils.database import User
 from bot.utils.embed import generate_embed
 
@@ -154,9 +155,20 @@ class Levels(Cog):
 
         return cast(int, result.exp) if result is not None else 0
 
+    # Listeners
+
+    @Cog.listener()
+    async def on_ready(self) -> None:
+        get_role = self.bot.guild.get_role
+        value = {k: get_role(v) for k, v in LEVELS_MAPPING.items()}
+
+        # A mapping of levels to roles. This is used to give
+        # users roles when they reach a certain level.
+        self.mapping = cast(dict[int, Role], value)
+
     @Cog.listener()
     async def on_regular_message(self, message: Message) -> None:
-        author = message.author
+        author = cast(Member, message.author)
         channel = message.channel
 
         # If we are in development environment, only add experience in
@@ -205,6 +217,19 @@ class Levels(Cog):
                 f"Parabéns, {author.mention}! Você subiu para o "
                 f"**nível {intcomma(new_level)}**!",
             ]
+
+            if new_level in self.mapping:
+                role = self.mapping[new_level]
+
+                # Add a message to the contents to notify the user which
+                # role they received when they leveled up.
+                contents.append(
+                    f"Você recebeu o cargo {role.mention} ao passar "
+                    f"para esse nível."
+                )
+
+                await author.remove_roles(*self.mapping.values())
+                await author.add_roles(role)
 
             embed = generate_embed("\n".join(contents), member=author)
             await message.reply(embed=embed, mention_author=False)
