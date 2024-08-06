@@ -1,5 +1,17 @@
 # 🗃 Changelog
 
+# 🗃 Changelog
+
+## 🔗 0.10.0
+
+### 🖇 Features
+
+- ([`1fa7e07`](https://github.com/bitterteriyaki/myu/commit/1fa7e072131b51cda09d1a19b29eda55623b9284)) Add initial leveling roles (`extensions.levels`)
+
+### 🔧 Fixes
+
+- ([`58872d7`](https://github.com/bitterteriyaki/myu/commit/58872d72f7e6559605989007f2bb1bffdb535fb5)) Fix wrong dynamic prefixes (`bot.core`)
+
 ## 🔗 0.9.0
 
 ### 🖇 Features
