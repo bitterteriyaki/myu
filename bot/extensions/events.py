@@ -15,16 +15,24 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
+from collections.abc import Callable
+from datetime import timedelta
 from logging import getLogger
 from typing import cast
 
 from discord import ClientUser, Message
-from discord.ext.commands import Cog
+from discord.ext.commands import (
+    Cog,
+    CommandError,
+    CommandOnCooldown,
+)
+from humanize import precisedelta
 from rich import print
 from rich.box import ROUNDED
 from rich.table import Table
 
 from bot.core import Myu
+from bot.utils.context import MyuContext
 
 log = getLogger(__name__)
 
@@ -34,6 +42,16 @@ class Events(Cog):
 
     def __init__(self, bot: Myu) -> None:
         self.bot = bot
+        self.error_callbacks = cast(
+            dict[type[CommandError], Callable[[CommandError], str]],
+            {CommandOnCooldown: self.on_command_on_cooldown},
+        )
+
+    def on_command_on_cooldown(self, error: CommandOnCooldown) -> str:
+        delta = timedelta(seconds=error.retry_after)
+        retry_after = precisedelta(delta, format="%0.0f")
+
+        return f"Você poderá usar esse comando novamente em **{retry_after}**."
 
     @Cog.listener()
     async def on_ready(self) -> None:
@@ -55,6 +73,17 @@ class Events(Cog):
         table.add_row(str(user), str(user.id), str(guilds), str(users))
 
         print(table)
+
+    @Cog.listener()
+    async def on_command_error(
+        self, ctx: MyuContext, error: CommandError
+    ) -> None:
+        callback = self.error_callbacks.get(type(error))
+
+        if callback is None:
+            raise error
+
+        await ctx.reply(callback(error))
 
     @Cog.listener()
     async def on_message(self, message: Message) -> None:

@@ -127,7 +127,7 @@ class Levels(Cog):
 
         return cast(int, result.exp) if result is not None else 0
 
-    async def add_experience(self, user_id: int, to_add: int) -> int:
+    async def add_experience(self, user_id: int, to_add: int, /) -> int:
         """Add experience to an user with the given ID. If the user
         doesn't exist in the database, then zero is returned. If the
         user exists in the database, then zero is returned.
