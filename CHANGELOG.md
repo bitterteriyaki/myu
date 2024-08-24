@@ -4,6 +4,16 @@
 
 # 🗃 Changelog
 
+# 🗃 Changelog
+
+## 🔗 0.12.0
+
+### 🖇 Features
+
+- ([`2e51b9a`](https://github.com/bitterteriyaki/myu/commit/2e51b9ae222ec9af6414d5350a5066253ea8d24c)) Add `balance` command (`extensions.economy`)
+- ([`b42d78f`](https://github.com/bitterteriyaki/myu/commit/b42d78fa2f93c5a75b6a9f88c522172a60afc2a5)) Initial economy extension (`extensions.economy`)
+- ([`cf38eb7`](https://github.com/bitterteriyaki/myu/commit/cf38eb7557af33fdcc9850a87b0ff029ea071592)) Add correct type for `ctx.guild` (`utils.context`)
+
 ## 🔗 0.11.0
 
 ### 🖇 Features
