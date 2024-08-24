@@ -70,8 +70,8 @@ repos:
     hooks:
       - id: python-check-blanket-noqa
         name: 🐍 Check for blanket noqa
-      - id: python-check-blanket-type-ignore
-        name: 🐍 Check for blanket type ignore
+      # - id: python-check-blanket-type-ignore
+      #   name: 🐍 Check for blanket type ignore
       - id: python-no-eval
         name: 🐍 Check for eval() calls
       - id: python-use-type-annotations

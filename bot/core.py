@@ -20,13 +20,20 @@ from logging import getLogger
 from os import environ
 from typing import Any, cast
 
-from discord import Guild, Intents, Interaction, Message, TextChannel
+from discord import (
+    Guild,
+    Intents,
+    Interaction,
+    Message,
+    Role,
+    TextChannel,
+)
 from discord.ext.commands import Bot, Context
 from discord.utils import cached_property
 from jishaku.modules import find_extensions_in
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from bot.utils.constants import GUILD_ID, TEST_CHANNEL_ID
+from bot.utils.constants import GUILD_ID, STAFF_ROLE_IDS, TEST_CHANNEL_ID
 from bot.utils.context import MyuContext
 from bot.utils.database import DATABASE_URL
 
@@ -73,6 +80,13 @@ class Myu(Bot):
     @cached_property
     def test_channel(self) -> TextChannel:
         return cast(TextChannel, self.guild.get_channel(TEST_CHANNEL_ID))
+
+    @cached_property
+    def staff_roles(self) -> tuple[Role, ...]:
+        return tuple(
+            cast(Role, self.guild.get_role(role_id))
+            for role_id in STAFF_ROLE_IDS
+        )
 
     def is_development(self) -> bool:
         """Return whether the bot is running in development environment.
