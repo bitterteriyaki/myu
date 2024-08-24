@@ -41,7 +41,6 @@ class Moderation(Cog):
         *,
         reason: str | None = None,
     ) -> None:
-        """Bans a member from the server."""
         if is_member_staff(ctx, member):
             await ctx.reply("Você não pode banir um membro da equipe.")
             return

@@ -37,4 +37,5 @@ class User(Base):
     __tablename__ = "users"
 
     id = Field(BigInteger, primary_key=True)
-    exp = Field(BigInteger, default=0)
+    exp = Field(BigInteger, server_default="0")
+    balance = Field(BigInteger, server_default="0")
