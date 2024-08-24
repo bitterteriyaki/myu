@@ -27,6 +27,7 @@ repos:
         name: 📜 Check for destroyed symlinks
       - id: end-of-file-fixer
         name: 📜 Ensure files end with a newline
+        exclude: CHANGELOG.md
       - id: fix-byte-order-marker
         name: 📜 Fix byte order marker
       - id: mixed-line-ending
@@ -54,6 +55,7 @@ repos:
         name: 🔑 Check for private keys
       - id: trailing-whitespace
         name: 🧹 Trim trailing whitespace
+        exclude: CHANGELOG.md
       - id: pretty-format-json
         name: 🧹 Pretty format JSON
         args:
