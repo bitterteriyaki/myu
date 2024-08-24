@@ -2,6 +2,18 @@
 
 # 🗃 Changelog
 
+# 🗃 Changelog
+
+## 🔗 0.11.0
+
+### 🖇 Features
+
+- ([`4c42152`](https://github.com/bitterteriyaki/myu/commit/4c421527d877e5327df888a070c52d8d79c90d73)) Initial moderation extension (`extensions.mod`)
+
+### Perf
+
+- ([`a995874`](https://github.com/bitterteriyaki/myu/commit/a995874bb8aef32dc2cc984ac2bc472f792d35ea)) Do not cast roles to `list` every time (`extensions.levels`)
+
 ## 🔗 0.10.0
 
 ### 🖇 Features
