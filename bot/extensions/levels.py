@@ -165,6 +165,7 @@ class Levels(Cog):
         # A mapping of levels to roles. This is used to give
         # users roles when they reach a certain level.
         self.mapping = cast(dict[int, Role], value)
+        self.roles = list(self.mapping.values())
 
     @Cog.listener()
     async def on_regular_message(self, message: Message) -> None:
@@ -228,7 +229,7 @@ class Levels(Cog):
                     f"para esse nível."
                 )
 
-                await author.remove_roles(*self.mapping.values())
+                await author.remove_roles(*self.roles)
                 await author.add_roles(role)
 
             embed = generate_embed("\n".join(contents), member=author)
