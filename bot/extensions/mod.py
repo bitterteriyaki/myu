@@ -15,9 +15,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-from typing import cast
-
-from discord import Guild, HTTPException, Member
+from discord import HTTPException, Member
 from discord.ext.commands import Cog, has_permissions, hybrid_command
 
 from bot.core import Myu
@@ -49,7 +47,7 @@ class Moderation(Cog):
             return
 
         try:
-            await cast(Guild, ctx.guild).ban(member, reason=reason)
+            await ctx.guild.ban(member, reason=reason)
         except HTTPException:
             await ctx.reply("Não foi possível banir o membro.")
         else:

@@ -17,7 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 from typing import TYPE_CHECKING, Any
 
-from discord import Message
+from discord import Guild, Message
 from discord.ext.commands import Context
 
 from bot.utils.embed import generate_embed
@@ -30,6 +30,8 @@ else:
 
 class MyuContext(Context[Myu]):
     """A custom context class for the bot."""
+
+    guild: Guild
 
     async def reply(
         self, content: str | None = None, **kwargs: Any
