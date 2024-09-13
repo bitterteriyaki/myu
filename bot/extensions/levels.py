@@ -229,8 +229,9 @@ class Levels(Cog):
                     f"para esse nível."
                 )
 
-                await author.remove_roles(*self.roles)
-                await author.add_roles(role)
+                if not self.bot.is_development():
+                    await author.remove_roles(*self.roles)
+                    await author.add_roles(role)
 
             embed = generate_embed("\n".join(contents), member=author)
             await message.reply(embed=embed, mention_author=False)

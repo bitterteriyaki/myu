@@ -21,10 +21,13 @@ from discord.abc import User
 EMBED_COLOR = 0x5300C4
 
 
-def generate_embed(content: str | None, /, *, member: User) -> Embed:
+def generate_embed(
+    content: str | None = None, /, *, member: User | None = None
+) -> Embed:
     embed = Embed(description=content, color=EMBED_COLOR)
-    icon_url = member.display_avatar.url
 
-    embed.set_author(name=member.display_name, icon_url=icon_url)
+    if member is not None:
+        icon_url = member.display_avatar.url
+        embed.set_author(name=member.display_name, icon_url=icon_url)
 
     return embed

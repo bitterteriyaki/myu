@@ -33,7 +33,12 @@ from discord.utils import cached_property
 from jishaku.modules import find_extensions_in
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from bot.utils.constants import GUILD_ID, STAFF_ROLE_IDS, TEST_CHANNEL_ID
+from bot.utils.constants import (
+    CHAT_CHANNEL_ID,
+    GUILD_ID,
+    STAFF_ROLE_IDS,
+    TEST_CHANNEL_ID,
+)
 from bot.utils.context import MyuContext
 from bot.utils.database import DATABASE_URL
 
@@ -76,6 +81,10 @@ class Myu(Bot):
     @cached_property
     def guild(self) -> Guild:
         return cast(Guild, self.get_guild(GUILD_ID))
+
+    @cached_property
+    def chat_channel(self) -> TextChannel:
+        return cast(TextChannel, self.guild.get_channel(CHAT_CHANNEL_ID))
 
     @cached_property
     def test_channel(self) -> TextChannel:
