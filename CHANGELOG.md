@@ -1,3 +1,12 @@
+## 🔗 0.13.0
+
+
+### 🖇 Features
+
+
+- ([`753a2e2`](https://github.com/bitterteriyaki/myu/commit/753a2e2a1fbb769c1b025c0bad9e54c95e36bc00)) Add initial lootboxes system (`extensions.lootboxes`)
+
+
 ## 🔗 0.12.1
 
 
